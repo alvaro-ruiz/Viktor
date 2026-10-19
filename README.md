@@ -1,4 +1,4 @@
-# 🧭 Viktor — Agente RAG en Existencialismo, Logoterapia y Humanismo
+# Viktor — Agente RAG en Existencialismo, Logoterapia y Humanismo
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
 ![LangChain](https://img.shields.io/badge/LangChain-0.2%2B-green)
@@ -11,31 +11,31 @@
 
 ---
 
-## 📖 Descripción del Proyecto
+## Descripción del Proyecto
 
 **Viktor** es un asistente de IA inspirado en el pensamiento de Viktor Frankl, Jean-Paul Sartre y Albert Camus. Su propósito es responder preguntas complejas sobre el **existencialismo**, la **logoterapia** y la **psicología humanista**, fundamentando todas sus explicaciones en fuentes documentales reales y citando textualmente las obras de referencia.
 
-### 🎯 Características Principales
-* 📚 **RAG Preciso y Fundamentado**: Recupera fragmentos contextuales desde una base de datos vectorial local para evitar alucinaciones.
-* 🧠 **Memoria Conversacional con LangGraph**: Mantiene el contexto histórico del diálogo entre turnos gracias a un *checkpointer* (`MemorySaver`) indexado por `thread_id`.
-* ⚡ **Inferencia Ultrarrápida con Groq**: Utiliza modelos de código abierto de gran escala (`openai/gpt-oss-120b` o familia Llama 3) sobre LPUs de alto rendimiento.
-* 🛡️ **Control de Tasa de Peticiones (Rate Limit)**: Algoritmo con reintentos y *backoff exponencial* que absorbe los picos de uso (error 429) de la API de Groq sin interrumpir la conversación.
-* 🕊️ **Diseño Ético del Prompt**: Incorpora pautas deontológicas explícitas: el asistente aclara que no sustituye el apoyo terapéutico profesional y responde con empatía y recursos de ayuda si detecta sufrimiento agudo.
+### Características Principales
+*  **RAG Preciso y Fundamentado**: Recupera fragmentos contextuales desde una base de datos vectorial local para evitar alucinaciones.
+*  **Memoria Conversacional con LangGraph**: Mantiene el contexto histórico del diálogo entre turnos gracias a un *checkpointer* (`MemorySaver`) indexado por `thread_id`.
+*  **Inferencia Ultrarrápida con Groq**: Utiliza modelos de código abierto de gran escala (`openai/gpt-oss-120b` o familia Llama 3) sobre LPUs de alto rendimiento.
+*  **Control de Tasa de Peticiones (Rate Limit)**: Algoritmo con reintentos y *backoff exponencial* que absorbe los picos de uso (error 429) de la API de Groq sin interrumpir la conversación.
+*  **Diseño Ético del Prompt**: Incorpora pautas deontológicas explícitas: el asistente aclara que no sustituye el apoyo terapéutico profesional y responde con empatía y recursos de ayuda si detecta sufrimiento agudo.
 
 ---
 
-## 🏗️ Arquitectura del Sistema
+## Arquitectura del Sistema
 
 El flujo de trabajo está orquestado mediante un grafo de estados cíclico con **LangGraph**:
 
 ```mermaid
 flowchart LR
-    A[🧑 Usuario: Pregunta] --> B[Retriever Node]
+    A[ Usuario: Pregunta] --> B[Retriever Node]
     B -->|Búsqueda Semántica| C[(ChromaDB + HuggingFace)]
     C -->|Fragmentos K=4| D[Contexto Recuperado]
     D --> E[Generate Node]
     E -->|Prompt + Historial + Contexto| F[LLM Groq]
-    F --> G[🤖 Viktor: Respuesta con Citas]
+    F --> G[ Viktor: Respuesta con Citas]
     G -.->|Persistencia de Estado| H[(MemorySaver Checkpointer)]
     H -.->|Historial Próximo Turno| B
 ```
@@ -50,7 +50,7 @@ flowchart LR
 
 ---
 
-## 📚 Base Documental (Corpus)
+##  Base Documental (Corpus)
 
 El conocimiento documental de Viktor está compuesto por textos fundamentales ubicados en `documentos_filosofia/`:
 
@@ -62,7 +62,7 @@ El conocimiento documental de Viktor está compuesto por textos fundamentales ub
 
 ---
 
-## 🚀 Instalación y Puesta en Marcha
+##  Instalación y Puesta en Marcha
 
 ### 1. Clonar el Repositorio
 ```bash
@@ -102,11 +102,11 @@ Abre Jupyter Notebook o VS Code:
 jupyter notebook Asistente_Viktor_entrega.ipynb
 ```
 
-> 💡 **Compatibilidad Híbrida**: El cuaderno detecta automáticamente si estás corriendo en tu máquina local (cargando las variables desde `.env`) o en **Google Colab** (leyendo desde el gestor de secretos `google.colab.userdata`).
+>  **Compatibilidad Híbrida**: El cuaderno detecta automáticamente si estás corriendo en tu máquina local (cargando las variables desde `.env`) o en **Google Colab** (leyendo desde el gestor de secretos `google.colab.userdata`).
 
 ---
 
-## 💬 Ejemplos de Diálogo y Memoria
+##  Ejemplos de Diálogo y Memoria
 
 ### Pregunta 1 (Introducción):
 > **Usuario:** *¿Quién fue Viktor Frankl y qué es la logoterapia?*  
@@ -118,7 +118,7 @@ jupyter notebook Asistente_Viktor_entrega.ipynb
 
 ---
 
-## 📁 Estructura del Repositorio
+##  Estructura del Repositorio
 
 ```text
 .
@@ -132,7 +132,7 @@ jupyter notebook Asistente_Viktor_entrega.ipynb
 
 ---
 
-## 🛠️ Tecnologías
+##  Tecnologías
 
 * **Orquestación**: [LangGraph](https://langchain-ai.github.io/langgraph/) / [LangChain](https://www.langchain.com/)
 * **Inferencia LLM**: [Groq Cloud](https://groq.com/)
